@@ -2,25 +2,26 @@ import React from 'react'
 
 const Card = (props) => {
   return (
-      <div>
-        <div className="card bg-base-100 w-96 shadow-sm">
-          <figure>
-              <img
-                  src={props.img}
-                  alt="Shoes" />
-          </figure>
-          <div className="card-body">
-              <h2 className="card-title">
-                <div className='badge badge-secondary'>NEW</div>
-              </h2>
-                  <p>{props.img}</p>
-              <div className="card-actions justify-end">
-                      <div className="badge badge-outline">Edit</div>
-                      <div className="badge badge-outline">Delete</div>
-              </div>
-          </div>
+    <div className="card bg-base-100 w-96 shadow-sm">
+    <figure>
+      <img
+        src={props.img}
+        alt="Shoes" />
+    </figure>
+    <div className="card-body">
+      <h2 className="card-title">
+        {props.title}
+        <div className="badge badge-secondary">NEW</div>
+      </h2>
+      <p>
+        {props.type}
+      </p>
+      <div className="card-actions justify-end">
+        <div className="badge badge-outline">Edit</div>
+        <div className="badge badge-outline">Delete</div>
       </div>
-      </div>
+    </div>
+  </div>    
   )
 }
 
