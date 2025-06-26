@@ -1,28 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 
-
-const AddRestaurant = () => {
+const UpdateRestaurant = () => {
+  const { id } = useParams();
   const [restaurant, setRestaurants] = useState({
     title: "",
     type: "",
     img: "",
   });
+
+  useEffect(() => {
+    fetch("http://localhost:5000/restaurants/" + id)
+      .then((res) => {
+        return res.json();
+      })
+      .then((response) => {
+        setRestaurants(response);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRestaurants({ ...restaurant, [name]: value });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      const response = fetch("http://localhost:5000/restaurants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch("http://localhost:5000/restaurants/" + id, {
+        method: "PUT",
         body: JSON.stringify(restaurant),
       });
 
       if (response.ok) {
-        alert("Restaurant added successfully!");
+        alert("Restaurant Update successfully!");
         setRestaurants({
           title: "",
           type: "",
@@ -37,33 +49,37 @@ const AddRestaurant = () => {
   return (
     <div className="container mx-auto">
       <div>
-        <h1 className="text-2x1 text-center mt-2">Add New Restaurant</h1>
+        <h1 className="text-2x1 text-center mt-2">Update Restaurant</h1>
       </div>
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Restaurant name</legend>
+        <legend className="fieldset-legend">Update Restaurant name</legend>
         <input
           type="text"
           name="title"
+          value={restaurant.title}
           className="input"
           placeholder="Type here"
           onChange={handleChange}
         />
       </fieldset>
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Restaurant type</legend>
+        <legend className="fieldset-legend">Update Restaurant type</legend>
         <input
           type="text"
           name="type"
+          value={restaurant.type}
           className="input"
           placeholder="Type here"
           onChange={handleChange}
         />
       </fieldset>
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Restaurant img</legend> <br />
+        <legend className="fieldset-legend">Update Restaurant img</legend>{" "}
+        <br />
         <input
           type="text"
           name="img"
+          value={restaurant.img}
           className="input"
           placeholder="Type here"
           onChange={handleChange}
@@ -83,4 +99,4 @@ const AddRestaurant = () => {
   );
 };
 
-export default AddRestaurant;
+export default UpdateRestaurant;

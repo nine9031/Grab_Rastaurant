@@ -2,14 +2,13 @@ import React from "react";
 
 const Navbar = () => {
   const menuItems = [
-    
     {
       name: "Search",
       url: "/",
     },
     {
       name: "Add Restaurant",
-      url: "/",
+      url: "/add",
     },
     {
       name: "About Us",
@@ -50,7 +49,9 @@ const Navbar = () => {
             })}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Grab Restaurant</a>
+        <a href="/" className="btn btn-ghost text-xl">
+          Grab Restaurant
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
